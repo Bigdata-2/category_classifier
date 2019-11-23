@@ -70,7 +70,7 @@ for i in data:
     all_temp.append(category_list.get(category))
     token.append(all_temp)
 
-print("ÅäÅ« Ã³¸® ¿Ï·á")
+print("í† í° ì²˜ë¦¬ ì™„ë£Œ")
 
 embeddingmodel = []
 for i in range(len(token)):
@@ -84,8 +84,8 @@ embedding.save('post.embedding')
 
 
 tokens = np.array(token)
-print("token Ã³¸® ¿Ï·á")
-print("train_data ÃÖ½Å ¹öÀüÀÎÁö È®ÀÎ")
+print("token ì²˜ë¦¬ ì™„ë£Œ")
+print("train_data ìµœì‹  ë²„ì „ì¸ì§€ í™•ì¸")
 train_X = tokens[:, 0]
 train_Y = tokens[:, 1]
 
@@ -116,10 +116,10 @@ seq_len = tf.placeholder(tf.int32, shape = [None])
 
 -------------------------------------------------------------------
 CNN : convolution -> pooling 
-BiLSTM = Bi_LSTM.Bi_LSTM(lstm_units, num_class, keep_prob) => RNN CNNÀ¸·Î
-**CNNÀº ´Ü¾î µîÀå¼ø¼­/¹®¸Æ Á¤º¸¸¦ º¸Á¸ÇÑ´Ù.(ÅØ½ºÆ®ÀÇ Áö¿ªÀûÀÎ Á¤º¸ º¸Á¸)
-RNNÀº ´Ü¾î ÀÔ·Â°ªÀ» ¼ø¼­´ë·Î Ã³¸®ÇÔÀ¸·Î½á, CNNÀº ¹®ÀåÀÇ Áö¿ª Á¤º¸¸¦ º¸Á¸ÇÔÀ¸·Î½á ´Ü¾î/Ç¥ÇöÀÇ µîÀå¼ø¼­¸¦ ÇÐ½À¿¡ ¹Ý¿µÇÏ´Â ¾ÆÅ°ÅØÃ³.
-Áï ÀÚ¿¬¾ð¾îÃ³¸®¸¦ À§ÇØ CNN »ç¿ë max-pooling °úÁ¤À» °ÅÃÄ Å¬·¡½º °³¼ö(°á°ú°ª 5°³ : sport ~~µîµî) 
+BiLSTM = Bi_LSTM.Bi_LSTM(lstm_units, num_class, keep_prob) => RNN CNNìœ¼ë¡œ
+**CNNì€ ë‹¨ì–´ ë“±ìž¥ìˆœì„œ/ë¬¸ë§¥ ì •ë³´ë¥¼ ë³´ì¡´í•œë‹¤.(í…ìŠ¤íŠ¸ì˜ ì§€ì—­ì ì¸ ì •ë³´ ë³´ì¡´)
+RNNì€ ë‹¨ì–´ ìž…ë ¥ê°’ì„ ìˆœì„œëŒ€ë¡œ ì²˜ë¦¬í•¨ìœ¼ë¡œì¨, CNNì€ ë¬¸ìž¥ì˜ ì§€ì—­ ì •ë³´ë¥¼ ë³´ì¡´í•¨ìœ¼ë¡œì¨ ë‹¨ì–´/í‘œí˜„ì˜ ë“±ìž¥ìˆœì„œë¥¼ í•™ìŠµì— ë°˜ì˜í•˜ëŠ” ì•„í‚¤í…ì²˜.
+ì¦‰ ìžì—°ì–¸ì–´ì²˜ë¦¬ë¥¼ ìœ„í•´ CNN ì‚¬ìš© max-pooling ê³¼ì •ì„ ê±°ì³ í´ëž˜ìŠ¤ ê°œìˆ˜(ê²°ê³¼ê°’ 5ê°œ : sport ~~ë“±ë“±) 
 import tensorflow as tf
 import random
 import matplotlib.pyplot as plt
@@ -128,25 +128,25 @@ from tensorflow.examples.tutorials.mnist import input_data
 tf.set_random_seed(777)
 
 
-------------¿©±âºÎÅÍ ´Ù½Ã ÇÏ¸é µÊ. À§¿¡±îÁö´Â ¼º°øÇßÀ½. 
+------------ì—¬ê¸°ë¶€í„° ë‹¤ì‹œ í•˜ë©´ ë¨. ìœ„ì—ê¹Œì§€ëŠ” ì„±ê³µí–ˆìŒ. 
 with tf.nn.conv2d(self.embedded_chars_expanded,
 			W,
-			strides=[1,1,1,1], // ¹èÄ¡µ¥ÀÌÅÍ ÇÏ³ª¾¿, ´Ü¾î ÇÏ³ª¾¿ ½½¶óÀÌµù ÇÏ¸é¼­ º¸¶ó´Â ÀÇ¹Ì => strides °ª [batch_size, input_height, input_width, input_channels] ¼ø¼­ÀÓ. 
+			strides=[1,1,1,1], // ë°°ì¹˜ë°ì´í„° í•˜ë‚˜ì”©, ë‹¨ì–´ í•˜ë‚˜ì”© ìŠ¬ë¼ì´ë”© í•˜ë©´ì„œ ë³´ë¼ëŠ” ì˜ë¯¸ => strides ê°’ [batch_size, input_height, input_width, input_channels] ìˆœì„œìž„. 
 			padding="VALID",
 			name="conv")
-h = tf.nn.relu(tf.nn.bias_add(conv,b), name="relu") // bias -8 ½Ã¹ü Á¶Á¤
-// ÄÚµå ¼³¸í - ÀÌ·¸°Ô conv¸¦ Àû¿ëÇÑ µÚÀÇ ÅÙ¼­ Â÷¿ø¼ö´Â [batch_size, sequence_length-filter_size+1,1,num_filters] °¡ µÈ´Ù. ÀÌÈÄ ReLU ¸¦ ½á¼­ non-linearity È®º¸ÇÑ´Ù. 
+h = tf.nn.relu(tf.nn.bias_add(conv,b), name="relu") // bias -8 ì‹œë²” ì¡°ì •
+// ì½”ë“œ ì„¤ëª… - ì´ë ‡ê²Œ convë¥¼ ì ìš©í•œ ë’¤ì˜ í…ì„œ ì°¨ì›ìˆ˜ëŠ” [batch_size, sequence_length-filter_size+1,1,num_filters] ê°€ ëœë‹¤. ì´í›„ ReLU ë¥¼ ì¨ì„œ non-linearity í™•ë³´í•œë‹¤. 
 //------------------
-//max-pooling ÄÚµå
+//max-pooling ì½”ë“œ
 Pooled = tf.nn.max_pool(h,
 			Ksize=[1, sequence_length ? filter_size + 1, 1, 1],
 			Strides=[1,1,1,1],
-			Padding=¡¯VALID¡¯,
-			Name=¡±pool¡±)
-// ÀÌÈÄ MAS-pooling ÇÑ °á°ú¹°À» ÇÕÄ¡°í FC(Full-connected layer) ¸¦ Åë°ú½ÃÄÑ °¢ Å¬·¡½º¿¡ ÇØ´çÇÏ´Â ½ºÄÚ¾î¸¦ ³½ µÚ Å©·Î½º¿£Æ®·ÎÇÇ ¿ÀÂ÷¸¦ ±¸ÇÑ ÈÄ backpropagation ¼öÇàÇØ¼­ ÇÊÅÍÀÇ weight µî ÆÄ¶ó¹ÌÅÍ °ªµéÀ» ¾÷µ¥ÀÌÆ®ÇÏ´Â °úÁ¤À» °ÅÄ£´Ù. ¿©±â¼­ Æ¯ÀÌÁ¡Àº ´Ü¾îº¤ÅÍÀÇ ¸ðÀ½ÀÎ lookup Å×ÀÌºíµµ ÇÐ½À°úÁ¤¿¡¼­ °°ÀÌ ¾÷µ¥ÀÌÆ® ÇÑ´Ù.
+			Padding=â€™VALIDâ€™,
+			Name=â€poolâ€)
+// ì´í›„ MAS-pooling í•œ ê²°ê³¼ë¬¼ì„ í•©ì¹˜ê³  FC(Full-connected layer) ë¥¼ í†µê³¼ì‹œì¼œ ê° í´ëž˜ìŠ¤ì— í•´ë‹¹í•˜ëŠ” ìŠ¤ì½”ì–´ë¥¼ ë‚¸ ë’¤ í¬ë¡œìŠ¤ì—”íŠ¸ë¡œí”¼ ì˜¤ì°¨ë¥¼ êµ¬í•œ í›„ backpropagation ìˆ˜í–‰í•´ì„œ í•„í„°ì˜ weight ë“± íŒŒë¼ë¯¸í„° ê°’ë“¤ì„ ì—…ë°ì´íŠ¸í•˜ëŠ” ê³¼ì •ì„ ê±°ì¹œë‹¤. ì—¬ê¸°ì„œ íŠ¹ì´ì ì€ ë‹¨ì–´ë²¡í„°ì˜ ëª¨ìŒì¸ lookup í…Œì´ë¸”ë„ í•™ìŠµê³¼ì •ì—ì„œ ê°™ì´ ì—…ë°ì´íŠ¸ í•œë‹¤.
 
-ÀÌ¶§, word2vec ¿¡¼­ ½ÃÄõ³ªÀÌÁî ºÎºÐ¿¡ ¹®Á¦°¡ »ý°Ü¼­ ÀÌ ºÎºÐÀ» ÇØ°áÇÏ±â À§ÇØ ³ë·ÂÇÏ°í ÀÖ´Â ÁßÀÌ´Ù. (CNN°ú word2vec ¸¦ Á¢¸ñ½ÃÅ°´Â °úÁ¤¿¡¼­ ¹®Á¦°¡ ¹ß»ý)
-TF-IDF vs Word2VEC Áß¿¡¼­ ¹«¾ùÀ» ¼±ÅÃÇÒÁö °í¹ÎÁßÀÌ´Ù. ·£´ýÆ÷·¹½ºÆ®¸¦ ÀÌ¿ëÇÏ¸é °á°ú°¡ ´õ Àß ³ª¿Ã °Í °°´Ù°í »ý°¢ÇØ¼­ ÀÌÂÊÀ¸·Î ±¸ÇöÀ» »ý°¢ÁßÀÌ´Ù. 
+ì´ë•Œ, word2vec ì—ì„œ ì‹œì¿¼ë‚˜ì´ì¦ˆ ë¶€ë¶„ì— ë¬¸ì œê°€ ìƒê²¨ì„œ ì´ ë¶€ë¶„ì„ í•´ê²°í•˜ê¸° ìœ„í•´ ë…¸ë ¥í•˜ê³  ìžˆëŠ” ì¤‘ì´ë‹¤. (CNNê³¼ word2vec ë¥¼ ì ‘ëª©ì‹œí‚¤ëŠ” ê³¼ì •ì—ì„œ ë¬¸ì œê°€ ë°œìƒ)
+TF-IDF vs Word2VEC ì¤‘ì—ì„œ ë¬´ì—‡ì„ ì„ íƒí• ì§€ ê³ ë¯¼ì¤‘ì´ë‹¤. ëžœë¤í¬ë ˆìŠ¤íŠ¸ë¥¼ ì´ìš©í•˜ë©´ ê²°ê³¼ê°€ ë” ìž˜ ë‚˜ì˜¬ ê²ƒ ê°™ë‹¤ê³  ìƒê°í•´ì„œ ì´ìª½ìœ¼ë¡œ êµ¬í˜„ì„ ìƒê°ì¤‘ì´ë‹¤. 
 
 
 			
