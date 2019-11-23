@@ -70,13 +70,13 @@ model.wv['good']
 tf.set_random_seed(777)
 with tf.nn.conv2d(self.embedded_chars_expanded,
 			W,
-			strides=[1,1,1,1], // 배치데이터 하나씩, 단어 하나씩 슬라이딩 하면서 보라는 의미 => strides 값 [batch_size, input_height, input_width, input_channels] 순서임. 
+			strides=[1,1,1,1], # 배치데이터 하나씩, 단어 하나씩 슬라이딩 하면서 보라는 의미 => strides 값 [batch_size, input_height, input_width, input_channels] 순서임. 
 			padding="VALID",
 			name="conv")
 h = tf.nn.relu(tf.nn.bias_add(conv,b), name="relu") // bias -8 시범 조정
 
 
-//max-pooling 코드
+#max-pooling 코드
 Pooled = tf.nn.max_pool(h,
 			Ksize=[1, sequence_length ? filter_size + 1, 1, 1],
 			Strides=[1,1,1,1],
